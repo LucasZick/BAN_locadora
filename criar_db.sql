@@ -80,3 +80,18 @@ CREATE TABLE IF NOT EXISTS Revisao(
     PRIMARY KEY (cdRevisao),
     FOREIGN KEY (placa) REFERENCES Veiculo(placa)
 );
+
+CREATE TABLE IF NOT EXISTS Locacao(
+	cdLocacao INT NOT NULL,
+	cdFilialSaida INT NOT NULL,
+    cdFilialRetorno INT NOT NULL,
+    cdPessoa INT NOT NULL,
+    placa VARCHAR(8) NOT NULL,
+    dia DATE NOT NULL,
+    reservado BOOLEAN,
+    PRIMARY KEY (cdLocacao),
+    FOREIGN KEY (cdFilialSaida) REFERENCES Filial(cdFilial),
+    FOREIGN KEY (cdFilialRetorno) REFERENCES Filial(cdFilial),
+    FOREIGN KEY (cdPessoa) REFERENCES Pessoa(cdPessoa),
+    FOREIGN KEY (placa) REFERENCES Veiculo(placa)
+);
