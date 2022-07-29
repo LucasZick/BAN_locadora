@@ -71,7 +71,7 @@ INSERT INTO Seguro(cdSeguro, cdFilial, placa, cdPessoa, idHabilitacao, dtVencime
 INSERT INTO Seguro(cdFilial, placa, cdPessoa, idHabilitacao, dtVencimentoHabilitacao) VALUES (7897, "MCS-0232", 454, 39585, DATE '2025-07-12');
 INSERT INTO Seguro(cdFilial, placa, cdPessoa, idHabilitacao, dtVencimentoHabilitacao) VALUES (7895, "CDL-2103", 455, 17828, DATE '2023-11-03');
 
-INSERT INTO Locacao(cdLocacao, cdFilialSaida, cdFilialRetorno, cdPessoa, placa, dia, concluido) 
-VALUES (21, 7897, 7896, 453, "HSM-7839", DATE '2022-10-03', true);
-INSERT INTO Locacao(cdFilialSaida, cdFilialRetorno, cdPessoa, placa, dia, concluido) 
-VALUES (7895, 7894, 454, "CDL-2103", DATE '2023-02-15', false);
+INSERT INTO Locacao(cdLocacao, cdFilialSaida, cdFilialRetorno, cdPessoa, placa, diaSaida, diaRetorno, concluido) 
+VALUES (21, 7897, 7896, 453, "HSM-7839", DATE '2022-10-03', DATE '2022-11-03', true);
+INSERT INTO Locacao(cdFilialSaida, cdFilialRetorno, cdPessoa, placa, diaSaida, diaRetorno, concluido) 
+VALUES (7895, 7894, 454, "CDL-2103", DATE '2023-02-15', DATE '2023-02-18' , false);
