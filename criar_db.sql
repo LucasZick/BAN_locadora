@@ -3,29 +3,29 @@ CREATE DATABASE IF NOT EXISTS Locadora;
 USE Locadora;
 
 CREATE TABLE IF NOT EXISTS Filial(
-	cdFilial INT NOT NULL,
+	cdFilial INT NOT NULL AUTO_INCREMENT,
     endereco VARCHAR(50),
     PRIMARY KEY (cdFilial)
 );
 
 CREATE TABLE IF NOT EXISTS Pessoa(
-	cdPessoa INT NOT NULL,
+	cdPessoa INT NOT NULL AUTO_INCREMENT,
     nome VARCHAR(50) NOT NULL,
     endereco VARCHAR(50),
     PRIMARY KEY (cdPessoa)
 );
 
 CREATE TABLE IF NOT EXISTS PessoaJuridica(
-	CNPJ INT NOT NULL,
 	cdPessoa INT NOT NULL,
-    PRIMARY KEY (CNPJ),
+    CNPJ INT NOT NULL,
+	PRIMARY KEY (CNPJ),
     FOREIGN KEY (cdPessoa) REFERENCES Pessoa(cdPessoa)
 );
 
 CREATE TABLE IF NOT EXISTS PessoaFisica(
-	CPF INT NOT NULL,
 	cdPessoa INT NOT NULL,
-    dtNascimento DATE NOT NULL,
+    CPF INT NOT NULL,
+	dtNascimento DATE NOT NULL,
     sexo VARCHAR(20),
     PRIMARY KEY (CPF),
     FOREIGN KEY (cdPessoa) REFERENCES Pessoa(cdPessoa)
@@ -72,7 +72,7 @@ CREATE TABLE IF NOT EXISTS VeiculoPassageiros(
 );
 
 CREATE TABLE IF NOT EXISTS Revisao(
-	cdRevisao INT NOT NULL,
+	cdRevisao INT NOT NULL AUTO_INCREMENT,
     placa VARCHAR(8) NOT NULL,
     dia DATE NOT NULL,
     aprovado BOOLEAN,
@@ -81,17 +81,37 @@ CREATE TABLE IF NOT EXISTS Revisao(
     FOREIGN KEY (placa) REFERENCES Veiculo(placa)
 );
 
+CREATE TABLE IF NOT EXISTS FilialVeiculo(
+	placa VARCHAR(8) NOT NULL,
+    cdFilial INT NOT NULL,
+	FOREIGN KEY (placa) REFERENCES Veiculo(placa),
+    FOREIGN KEY (cdFilial) REFERENCES Filial(cdFilial)
+);
+
 CREATE TABLE IF NOT EXISTS Locacao(
-	cdLocacao INT NOT NULL,
+	cdLocacao INT NOT NULL AUTO_INCREMENT,
 	cdFilialSaida INT NOT NULL,
     cdFilialRetorno INT NOT NULL,
     cdPessoa INT NOT NULL,
     placa VARCHAR(8) NOT NULL,
     dia DATE NOT NULL,
-    reservado BOOLEAN,
+    concluido BOOLEAN,
     PRIMARY KEY (cdLocacao),
     FOREIGN KEY (cdFilialSaida) REFERENCES Filial(cdFilial),
     FOREIGN KEY (cdFilialRetorno) REFERENCES Filial(cdFilial),
+    FOREIGN KEY (cdPessoa) REFERENCES Pessoa(cdPessoa),
+    FOREIGN KEY (placa) REFERENCES Veiculo(placa)
+);
+
+CREATE TABLE IF NOT EXISTS Seguro(
+	cdSeguro INT NOT NULL AUTO_INCREMENT,
+    cdFilial INT NOT NULL,
+    placa VARCHAR(8),
+    cdPessoa INT NOT NULL,
+    idHabilitacao INT NOT NULL,
+    dtVencimentoHabilitacao DATE NOT NULL,
+    PRIMARY KEY (cdSeguro),
+    FOREIGN KEY (cdFilial) REFERENCES Filial(cdFilial),
     FOREIGN KEY (cdPessoa) REFERENCES Pessoa(cdPessoa),
     FOREIGN KEY (placa) REFERENCES Veiculo(placa)
 );
